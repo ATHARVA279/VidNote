@@ -13,7 +13,7 @@ CORS(app)
 
 logging.basicConfig(level=logging.DEBUG)
 
-genai.configure(api_key="AIzaSyBvuAmAH_J_xjh-2pOuiobhNN6ztApksyw")
+genai.configure(api_key="")
 model = genai.GenerativeModel("gemini-2.0-flash-lite")
 
 # Extract video ID from URL
