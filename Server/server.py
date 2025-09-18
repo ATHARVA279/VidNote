@@ -7,22 +7,22 @@ import logging
 import json
 import tempfile
 import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
 logging.basicConfig(level=logging.DEBUG)
 
-genai.configure(api_key="AIzaSyBvuAmAH_J_xjh-2pOuiobhNN6ztApksyw")
+load_dotenv()
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.0-flash-lite")
 
-# Extract video ID from URL
 def extract_video_id(url):
     match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', url)
     logging.debug(f"Extracted video ID: {match.group(1) if match else 'None'} from URL: {url}")
     return match.group(1) if match else None
 
-# Fetch transcript using yt-dlp and return plain text
 def get_transcript_ytdlp(url):
     with tempfile.TemporaryDirectory() as tmpdir:
         output_path = os.path.join(tmpdir, 'subtitle.json')
@@ -55,7 +55,6 @@ def get_transcript_ytdlp(url):
 
         return " ".join(transcript)
 
-# Generate AI notes from a text chunk
 def generate_notes_chunk(text):
     prompt = (
         "You're an AI assistant tasked with creating detailed, clear, and well-structured study notes "
