@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 interface VideoPlayerProps {
   videoId: string;
@@ -16,19 +16,18 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
   const ytPlayerRef = useRef<any>(null);
 
   useEffect(() => {
-    // Load YouTube API script if not already loaded
     if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      
-      const firstScriptTag = document.getElementsByTagName('script')[0];
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+
+      const firstScriptTag = document.getElementsByTagName("script")[0];
       firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-      
+
       window.onYouTubeIframeAPIReady = initializePlayer;
     } else {
       initializePlayer();
     }
-    
+
     return () => {
       if (ytPlayerRef.current) {
         ytPlayerRef.current.destroy();
@@ -38,7 +37,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
 
   const initializePlayer = () => {
     if (!playerRef.current) return;
-    
+
     ytPlayerRef.current = new window.YT.Player(playerRef.current, {
       videoId,
       playerVars: {
@@ -47,14 +46,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
         rel: 0,
       },
       events: {
-        onReady: (event: any) => {
-          // Player is ready
-        },
-        onStateChange: (event: any) => {
-          // Player state changed
-        },
+        onReady: (event: any) => {},
+        onStateChange: (event: any) => {},
         onError: (event: any) => {
-          console.error('YouTube Player Error:', event.data);
+          console.error("YouTube Player Error:", event.data);
         },
       },
     });

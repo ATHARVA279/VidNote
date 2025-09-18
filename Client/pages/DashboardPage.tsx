@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useVideo } from '../contexts/VideoContext';
-import VideoCard from '../components/VideoCard';
-import { Search, Plus, Filter } from 'lucide-react';
-import { Video } from '../types';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useVideo } from "../contexts/VideoContext";
+import VideoCard from "../components/VideoCard";
+import { Search, Plus, Filter } from "lucide-react";
+import { Video } from "../types";
 
 const DashboardPage: React.FC = () => {
   const { videos, searchVideos, filterVideosByTag } = useVideo();
   const [displayedVideos, setDisplayedVideos] = useState<Video[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTag, setSelectedTag] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
   const [allTags, setAllTags] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  // Collect all tags from videos
   useEffect(() => {
     const tags = new Set<string>();
-    videos.forEach(video => {
-      video.tags.forEach(tag => tags.add(tag));
+    videos.forEach((video) => {
+      video.tags.forEach((tag) => tags.add(tag));
     });
     setAllTags(Array.from(tags));
   }, [videos]);
 
-  // Update displayed videos based on search and filter
   useEffect(() => {
     let filtered = videos;
-    
+
     if (searchQuery) {
       filtered = searchVideos(searchQuery);
     }
-    
+
     if (selectedTag) {
       filtered = filterVideosByTag(selectedTag);
     }
-    
+
     setDisplayedVideos(filtered);
   }, [videos, searchQuery, selectedTag, searchVideos, filterVideosByTag]);
 
   const handleAddNewVideo = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -47,52 +45,33 @@ const DashboardPage: React.FC = () => {
         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">
           Your Video Library
         </h1>
-        <button
-          onClick={handleAddNewVideo}
-          className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 rounded-md text-white flex items-center transition-all duration-200 shadow-lg hover:shadow-purple-500/20"
-        >
-          <Plus className="h-5 w-5 mr-2" />
-          Add New Video
-        </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div className="grid grid-cols-4 gap-6 items-start">
         {/* Search bar */}
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-500" />
+        <div className="col-span-3">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 text-gray-500" />
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by title or author..."
+              className="block w-full pl-10 pr-3 py-2 border-2 border-gray-700 rounded-md bg-gray-800 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+            />
           </div>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by title or author..."
-            className="block w-full pl-10 pr-3 py-2 border-2 border-gray-700 rounded-md bg-gray-800 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-          />
         </div>
 
-        {/* Tag filter */}
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Filter className="h-5 w-5 text-gray-500" />
-          </div>
-          <select
-            value={selectedTag}
-            onChange={(e) => setSelectedTag(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border-2 border-gray-700 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 appearance-none"
+        <div className="col-span-1 flex">
+          <button
+            onClick={handleAddNewVideo}
+            className="w-full px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 rounded-md text-white flex items-center justify-center transition-all duration-200 shadow-lg hover:shadow-purple-500/20"
           >
-            <option value="">All Tags</option>
-            {allTags.map((tag, index) => (
-              <option key={index} value={tag}>
-                {tag}
-              </option>
-            ))}
-          </select>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <svg className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
-            </svg>
-          </div>
+            <Plus className="h-5 w-5 mr-2" />
+            Add New Video
+          </button>
         </div>
       </div>
 
