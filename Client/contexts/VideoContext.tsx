@@ -23,7 +23,7 @@ interface VideoContextType {
 
 const VideoContext = createContext<VideoContextType | undefined>(undefined);
 
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://vidnote.onrender.com';
 
 export const VideoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [videos, setVideos] = useState<Video[]>([]);

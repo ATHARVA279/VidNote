@@ -91,7 +91,7 @@ npm run server
 
 ### Running the Application
 
-1. Start the backend server (Flask will run on http://localhost:5000)
+1. Start the backend server (Flask will run on https://vidnote.onrender.com)
 2. Start the frontend development server (Vite will run on http://localhost:5173)
 3. Open your browser and navigate to the frontend URL
 
