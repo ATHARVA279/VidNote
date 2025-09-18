@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Video, Search } from "lucide-react";
+import { Video, Search } from "../components/Icons";
 import { useVideo } from "../contexts/VideoContext";
 
 const VideoInputPage: React.FC = () => {

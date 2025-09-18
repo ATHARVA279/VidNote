@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useVideo } from "../contexts/VideoContext";
 import VideoCard from "../components/VideoCard";
-import { Search, Plus, Filter } from "lucide-react";
+import { Search, Plus, Filter } from "../components/Icons";
 import { Video } from "../types";
 
 const DashboardPage: React.FC = () => {

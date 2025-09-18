@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { PenSquare, Trash2, Plus, Save, Check, X } from "lucide-react";
-import { useVideo } from "../contexts/VideoContext";
-import { Note } from "../types";
+import React, { useState, useEffect } from 'react';
+import { PenSquare, Trash2, Plus, Save, Check, X } from './Icons';
+import { useVideo } from '../contexts/VideoContext';
+import { Note } from '../types';
 
 interface TranscriptEditorProps {
   videoId: string;

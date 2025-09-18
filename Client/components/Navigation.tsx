@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { BookOpen, Plus, Settings, Video } from "lucide-react";
+import { BookOpen, Plus, Settings, Video } from "./Icons";
 
 const Navigation: React.FC = () => {
   const location = useLocation();

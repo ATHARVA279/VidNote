@@ -4,7 +4,7 @@ import { useVideo } from "../contexts/VideoContext";
 import { Video, Note } from "../types";
 import VideoPlayer from "../components/VideoPlayer";
 import TranscriptEditor from "../components/TranscriptEditor";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "../components/Icons";
 
 const VideoSummaryPage: React.FC = () => {
   const { videoId } = useParams<{ videoId: string }>();
